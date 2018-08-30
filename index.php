@@ -1,4 +1,5 @@
 <?php
 
-echo 'testtest';
-echo 'inna zmiana';
+/**
+ * Test project for github testing
+ */
