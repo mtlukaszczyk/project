@@ -8,7 +8,9 @@ class Test extends Controller {
     
     public static function beforeRender() {
         parent::beforeRender();
-        self::checkAutorization();
+        //self::checkAutorization();
+        
+        return true;
     }
 
     public static function index() {

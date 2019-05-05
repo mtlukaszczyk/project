@@ -1,11 +1,11 @@
 <?php
 /** Session panel */
-define('session_panel', 'app');
+define('SESSION_PANEL', 'app');
 
 /** App Version */
-define('app_version', 'local');
+define('APP_VERSION', 'local');
 
-if (app_version == 'local') {
+if (APP_VERSION == 'local') {
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
 }

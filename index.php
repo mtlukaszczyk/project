@@ -6,7 +6,7 @@ require_once 'config/' . CONFIG['SERVER_CONF'] . '/database.php';
 
 require_once 'vendor/autoload.php';
 
-if (app_version == 'dev') {
+if (APP_VERSION == 'local') {
     $whoops = new \Whoops\Run;
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 
