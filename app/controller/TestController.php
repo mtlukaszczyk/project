@@ -13,6 +13,8 @@ class Test extends Controller {
             'users' => User::get()
         ]);
     }
+    
+    // test commit
 
     public static function init() {
         //self::checkAutorization();
