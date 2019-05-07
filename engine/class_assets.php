@@ -2,7 +2,7 @@
 
 namespace Engine;
 
-class assets {
+class Assets {
 
     protected static $resources;
     protected static $resourcesDown;
@@ -32,19 +32,6 @@ class assets {
         } else {
             self::_addOne($name, 'down', $type);
         }
-    }
-
-    public static function dataTableExport() {
-        self::add([
-            'external/datatables/buttons/dataTables.buttons.min.js',
-            'external/datatables/buttons/buttons.flash.min.js',
-            'external/datatables/export/jszip.min.js',
-            'external/datatables/export/pdfmake.min.js',
-            'external/datatables/export/vfs_fonts.js',
-            'external/datatables/buttons/buttons.html5.min.js',
-            'external/datatables/buttons/buttons.print.min.js',
-            'https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css'
-        ]);
     }
 
     private static function _addOne($name, $upDown = 'up', $type = null) {
@@ -82,7 +69,13 @@ class assets {
 
         foreach ($resourcesCopy as $resource) {
 
-            $link = ($resource[2]) ? $resource[0] : base_url . $resource[1] . '/' . $resource[0];
+            $dir = $resource[1];
+
+            if (self::isMinificableAsset($resource)) {
+                $dir .= '/min';
+            }
+
+            $link = ($resource[2]) ? $resource[0] : base_url . $dir . '/' . $resource[0];
 
             if ($resource[1] == 'css') {
                 echo '        <link href="' . $link . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
@@ -94,14 +87,26 @@ class assets {
         echo PHP_EOL;
     }
 
+    private static function isMinificableAsset($resource) {
+
+        if ($resource[1] == 'css' || $resource[1] == 'js') {
+            if ('false') {
+                if (strpos($resource[0], '/') === false) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static function globals() {
 
-        self::add(
-                [
-                    'jquery.js',
-                    'bootstrap.min.css',
-                    'main.css'
-                ]
+        self::add([
+            'external/jquery.js',
+            'external/bootstrap.min.css',
+            'main.css',
+            'external/bootstrap.min.js']
         );
     }
 

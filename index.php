@@ -61,8 +61,12 @@ $twig->addExtension(new Twig_Extension_Debug());
 require_once 'engine/base_functions.php';
 require_once 'engine/autoload.php';
 
-Engine\assets::init();
-Engine\localizator::init();
-Engine\request::decode();
-Engine\router::init();
-Engine\router::callAction();
+Engine\Assets::init();
+Engine\Localizator::init();
+
+if (CONFIG['REDIS']) {
+    Engine\Redis::init();
+}
+Engine\Request::decode();
+Engine\Router::init();
+Engine\Router::callAction();

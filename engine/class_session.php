@@ -1,7 +1,7 @@
 <?php
 namespace Engine;
 
-class session {
+class Session {
 
     public static function set($name, $val) {
         if (!isset($_SESSION[SESSION_PANEL])) {

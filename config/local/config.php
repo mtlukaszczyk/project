@@ -12,3 +12,4 @@ if (APP_VERSION == 'local') {
 
 /** Base URL */
 define('base_url', 'http://127.0.0.1/gitproj/');
+define('BASE_SERVER_URL', '/Applications/XAMPP/xamppfiles/htdocs/gitproj/');

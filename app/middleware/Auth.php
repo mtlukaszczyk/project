@@ -7,7 +7,7 @@ trait Auth {
     public static function checkAutorization() {
         
         if (!parent::isLogged()) {
-            if (\Engine\request::$_isAjax) {
+            if (\Engine\Request::$isAjax) {
                 parent::render('json', ['data' => 'err', 'message' => 'not-logged']);
             }
 

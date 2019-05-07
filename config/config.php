@@ -16,7 +16,8 @@ define('CONFIG', [
     'HASH' => [
         'TYPE' => PASSWORD_BCRYPT,
         'COST' => 12
-    ]
+    ],
+    'REDIS' => true,
 ]);
 
 define('MAIN_CONTROLLER', 'Test');

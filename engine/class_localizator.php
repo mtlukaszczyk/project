@@ -3,7 +3,7 @@
 namespace Engine;
 use Illuminate\Database\Capsule\Manager as DB;
 
-class localizator {
+class Localizator {
 
     private static $data;
     private static $dataDef;

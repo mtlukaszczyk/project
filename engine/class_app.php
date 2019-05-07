@@ -1,7 +1,7 @@
 <?php
 namespace Engine;
 
-class app {
+class App {
     /**
      * Redirects to given controller action
      * @param string $controller

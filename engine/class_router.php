@@ -2,33 +2,37 @@
 
 namespace Engine;
 
-class router {
+class Router {
 
     private static $controllerFullName;
     private static $actionFullName;
 
     public static function init() {
 
-        if (trim(request::$_controller) == "" || trim(request::$_action) == "") {
-                trigger_error('YPHP: 404: Controller or action missing');
-                die();
+        if (trim(Request::$controller) == "" || trim(Request::$action) == "") {
+            trigger_error('404: Controller or action missing');
+            die();
         } else {
-            self::$controllerFullName = ucfirst(fixName(request::$_controller));
+            self::$controllerFullName = ucfirst(fixName(Request::$controller));
 
             \App\Controller\Controller::inject('user', new \Engine\User(session::get('user')));
             \App\Controller\Controller::init();
 
             $controllerFullName = '\\App\Controller\\' . (self::$controllerFullName);
 
-            self::$actionFullName = fixName(request::$_action);
+            self::$actionFullName = fixName(Request::$action);
 
             if (!class_exists($controllerFullName)) {
-                    trigger_error('YPHP: 404: Controller ' . $controllerFullName . ' missing');
-                    die();
+                trigger_error('404: Controller ' . $controllerFullName . ' missing');
+                die();
             }
         }
 
-        $controllerFullName::init();
+        $reflexion = new \ReflectionClass($controllerFullName);
+
+        if ($reflexion->getMethod('init')->class == $controllerFullName) {
+            $controllerFullName::init();
+        }
     }
 
     public static function callAction() {
@@ -40,7 +44,7 @@ class router {
 
             if (method_exists($controllerFullName, $actionFullName)) {
 
-                call_user_func_array([$controllerFullName, $actionFullName], request::$_params);
+                call_user_func_array([$controllerFullName, $actionFullName], Request::$params);
             } else {
                 trigger_error('YPHP: 404: Action ' . $actionFullName . ' in ' . $controllerFullName . ' missing');
                 die();

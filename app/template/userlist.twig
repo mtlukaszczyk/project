@@ -1,0 +1,11 @@
+{% extends "main/main.twig" %}
+
+{% block content %}
+
+    <ul>
+        {% for user in users %}
+            <li>{{ user.id }} > {{ user.email }}</li> 
+        {% endfor %}
+    </ul>    
+
+{% endblock %}

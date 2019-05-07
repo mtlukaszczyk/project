@@ -1,11 +1,11 @@
 <?php
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
 namespace App\Model;
 
-class User extends Eloquent {
+use \Illuminate\Database\Eloquent\Model as Model;
 
-    protected $table = 'users';
+class User extends Model {
+
+    protected $table = 'user';
 
     public static function getUserLoginData($email, $password) {
 

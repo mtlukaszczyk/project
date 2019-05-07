@@ -19,7 +19,7 @@ class Controller {
     public static function init() {
 
         self::$vars = [];
-        \Engine\assets::globals();
+        \Engine\Assets::globals();
     }
 
     /**
@@ -114,13 +114,13 @@ class Controller {
             }
         }
 
-        \Engine\assets::render();
+        \Engine\Assets::render();
         
         
         echo "        <script type='text/javascript'>" . PHP_EOL;
 
         echo "			  var base_url = '" . base_url . "';" . PHP_EOL;
-        echo "			  var localizations = " . \Engine\localizator::getDataForJs() . ";" . PHP_EOL;
+        echo "			  var localizations = " . \Engine\Localizator::getDataForJs() . ";" . PHP_EOL;
         echo "                    var isLogged = " . (self::isLogged() ? 'true' : 'false') . ";" . PHP_EOL;
 
         echo "		  </script>" . PHP_EOL;
@@ -130,7 +130,7 @@ class Controller {
     }
 
     private static function renderFooter() {
-        \Engine\assets::render('down');
+        \Engine\Assets::render('down');
         echo "    </body>" . PHP_EOL . "</html>";
     }
 

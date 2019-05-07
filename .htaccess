@@ -18,5 +18,5 @@ RewriteRule ^([a-z]{3})/$                                              index.php
 
 
 
-ErrorDocument 404 "<H1>4041</H1>"
+ErrorDocument 404 "<H1>404</H1>"
 

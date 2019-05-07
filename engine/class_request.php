@@ -1,23 +1,23 @@
 <?php
 namespace Engine;
 
-class request {
+class Request {
 
-    public static $_type;
-    public static $_controller;
-    public static $_action;
-    public static $_params = [];
-    public static $_requestParams = [];
-    public static $_isAjax = false;
-    public static $_customRoute = false;
+    public static $type;
+    public static $controller;
+    public static $action;
+    public static $params = [];
+    public static $requestParams = [];
+    public static $isAjax = false;
+    public static $customRoute = false;
 
     public static function decode() {
 
-        self::$_type = $_SERVER['REQUEST_METHOD'];
+        self::$type = $_SERVER['REQUEST_METHOD'];
         $params = [];
-        $req_params = [];
+        $reqParams = [];
 
-        self::$_isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+        self::$isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
         $controller = "";
         $action = "";
@@ -25,7 +25,7 @@ class request {
 
         if (isset($_REQUEST['custom'])) {
             if ($_REQUEST['custom'] == 1) {
-                self::$_customRoute = true;
+                self::$customRoute = true;
                 $controller = $_REQUEST['controller'] ?? MAIN_CONTROLLER;
                 $action = $_REQUEST['action'] ?? "index";
             }
@@ -34,7 +34,7 @@ class request {
             $get = array_merge([$_REQUEST['controller'], $_REQUEST['action']], $get_params);
         }
 
-        if (isset($_REQUEST['params']) && self::$_customRoute === false) {
+        if (isset($_REQUEST['params']) && self::$customRoute === false) {
 
             $get = explode('/', ($_REQUEST['params'] ?? ""));
 
@@ -42,21 +42,21 @@ class request {
             $action = $get[1] ?? "index";
         }
 
-        if (self::$_isAjax) {
+        if (self::$isAjax) {
 
             $controller = fixName(ucfirst($controller));
 
             $f = new \ReflectionMethod('\App\Controller\\' . $controller, fixName($action));
             $params = [];
 
-            if (self::$_type == 'DELETE' || self::$_type == 'PUT') {
-                parse_str(file_get_contents("php://input"), $req_params);
+            if (self::$type == 'DELETE' || self::$type == 'PUT') {
+                parse_str(file_get_contents("php://input"), $reqParams);
             } else {
-                $req_params = $_REQUEST;
+                $reqParams = $_REQUEST;
             }
 
             foreach ($f->getParameters() as $param) {
-                $params[$param->name] = $req_params[$param->name] ?? null;
+                $params[$param->name] = $reqParams[$param->name] ?? null;
             }
         } else {
 
@@ -70,10 +70,10 @@ class request {
             }
         }
 
-        self::$_controller = $controller;
-        self::$_action = $action;
-        self::$_params = $params;
-        self::$_requestParams = $req_params;
+        self::$controller = $controller;
+        self::$action = $action;
+        self::$params = $params;
+        self::$requestParams = $reqParams;
     }
 
 }
