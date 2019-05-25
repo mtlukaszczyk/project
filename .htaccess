@@ -7,12 +7,12 @@ RewriteEngine On
 RewriteBase /gitproj/
 
 
-RewriteRule ^js/(.+)$                                           resource/js/$1 [L]
-RewriteRule ^css/(.+)$                                          resource/css/$1 [L]
+RewriteRule ^js/(.+)$                                           resource/js/$1 [END]
+RewriteRule ^css/(.+)$                                          resource/css/$1 [END]
 
-RewriteRule ^([a-z]{3})/(.+)/$                                         index.php?lang_symbol=$1&params=$2 [L]
+RewriteRule ^([a-z]{3})/(.+)/$                                  index.php?lang_symbol=$1&params=$2 [END]
 
-RewriteRule ^([a-z]{3})/$                                              index.php?lang_symbol=$1&controller=user [L]
+RewriteRule ^([a-z]{3})/$                                       index.php?lang_symbol=$1&controller=user [END]
 
 </IfModule>
 

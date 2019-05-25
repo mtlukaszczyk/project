@@ -29,8 +29,9 @@ class Router {
         }
 
         $reflexion = new \ReflectionClass($controllerFullName);
+        $calledInitClass = '\\' . ($reflexion->getMethod('init')->class);
 
-        if ($reflexion->getMethod('init')->class == $controllerFullName) {
+        if ($calledInitClass == $controllerFullName) {
             $controllerFullName::init();
         }
     }
